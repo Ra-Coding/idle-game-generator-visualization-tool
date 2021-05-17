@@ -8,7 +8,7 @@ public class Generator {
     private double baseRevenue;
     private float baseProductionTimeInSeconds;
     private double costFactor;
-    private double nextBuildingCostsForOne;
+    private double nextCost;
 	
 	public Generator(double baseCost, double costFactor, double baseRevenue, float baseProductionTimeInSeconds, double multiplier) {
 		this.baseCost = baseCost;
@@ -16,23 +16,19 @@ public class Generator {
 		this.baseRevenue = baseRevenue;
 		this.baseProductionTimeInSeconds = baseProductionTimeInSeconds;
 		this.multiplier = multiplier;
-		updateNextBuildingCosts();
+		updateNextBuildingCost();
 	}
-	
 
-    public void updateNextBuildingCosts() {
-        double kOverR = Math.pow(costFactor, owned);
-        double kPlusNOverR = Math.pow(costFactor, owned + 1);
-
-        nextBuildingCostsForOne = baseCost * ((kOverR - kPlusNOverR) / (1 - costFactor));
+    public void updateNextBuildingCost() {
+        nextCost = baseCost * Math.pow(costFactor, owned);
     }
     
     public void calculateCosts() {
-    	updateNextBuildingCosts();
+    	updateNextBuildingCost();
     	owned++;
     }
     
-    public double produce() {
+    public double productionPerSecond() {
         if (owned == 0) {
             return 0;
         }
@@ -40,7 +36,7 @@ public class Generator {
         return (baseRevenue * owned * multiplier) / baseProductionTimeInSeconds;
     }
 
-	public double getNextBuildingCostsForOne() {
-		return nextBuildingCostsForOne;
+	public double getNextCost() {
+		return nextCost;
 	}
 }

@@ -160,8 +160,8 @@ public class UI {
 	        	
     	        for(int i = 0; i < owned; i++) {
     	        	generator.calculateCosts();
-    	        	seriesC.getData().add(new Data<Number, Number>(i, generator.getNextBuildingCostsForOne()));
-    	        	seriesPPS.getData().add(new Data<Number, Number>(i, generator.produce()));
+    	        	seriesC.getData().add(new Data<Number, Number>(i, generator.getNextCost()));
+    	        	seriesPPS.getData().add(new Data<Number, Number>(i, generator.productionPerSecond()));
     	        }
     	    }
     	});
