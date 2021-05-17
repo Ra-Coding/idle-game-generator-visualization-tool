@@ -21,8 +21,8 @@ public class Generator {
 	
 
     public void updateNextBuildingCosts() {
-        var kOverR = Math.pow(costFactor, owned);
-        var kPlusNOverR = Math.pow(costFactor, owned + 1);
+        double kOverR = Math.pow(costFactor, owned);
+        double kPlusNOverR = Math.pow(costFactor, owned + 1);
 
         nextBuildingCostsForOne = baseCost * ((kOverR - kPlusNOverR) / (1 - costFactor));
     }
