@@ -3,12 +3,21 @@
  */
 package idle.game.generator.visualization.tool;
 
-public class App {
-    public String getGreeting() {
-        return "Hello world.";
+import javafx.application.Application;
+import javafx.stage.Stage;
+ 
+public class App extends Application {
+ 
+    @Override public void start(Stage stage) {
+    	final UI ui = new UI();
+    	
+        stage.setTitle("Idle-Game Generator Visualization Tool");
+        stage.setResizable(false);
+        stage.setScene(ui.getScene());
+        stage.show();
     }
-
+ 
     public static void main(String[] args) {
-        System.out.println(new App().getGreeting());
+    	Application.launch(App.class);
     }
 }
