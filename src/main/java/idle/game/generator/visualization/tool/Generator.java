@@ -4,7 +4,7 @@ public class Generator {
 	
 	private double multiplier;
 	private int owned;
-    private double baseCost;
+	private double baseCost;
     private double baseRevenue;
     private float baseProductionTimeInSeconds;
     private double costFactor;
@@ -38,5 +38,9 @@ public class Generator {
 
 	public double getNextCost() {
 		return nextCost;
+	}
+	
+    public int getOwned() {
+		return owned;
 	}
 }
