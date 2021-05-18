@@ -9,7 +9,8 @@ repositories {
 }
 
 dependencies {
-    testImplementation 'junit:junit:4.12'
+	testImplementation 'org.junit.jupiter:junit-jupiter:5.8.0-M1'
+	testImplementation 'org.assertj:assertj-core:3.19.0'
 }
 
 application {
@@ -19,4 +20,8 @@ application {
 javafx {
     version = "11.0.2"
     modules = [ 'javafx.controls' ]
+}
+
+test {
+	useJUnitPlatform()
 }
