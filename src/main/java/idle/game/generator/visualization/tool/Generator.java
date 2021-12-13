@@ -2,13 +2,13 @@ package idle.game.generator.visualization.tool;
 
 public class Generator {
 	
-	private double multiplier;
+	private final double multiplier;
 	private int owned;
-	private double baseCost;
-    private double baseRevenue;
-    private float baseProductionTimeInSeconds;
-    private double costFactor;
-    private double nextCost;
+	private final double baseCost;
+	private final double baseRevenue;
+	private final float baseProductionTimeInSeconds;
+	private final double costFactor;
+	private double nextCost;
 	
 	public Generator(double baseCost, double costFactor, double baseRevenue, float baseProductionTimeInSeconds, double multiplier) {
 		this.baseCost = baseCost;
@@ -40,7 +40,7 @@ public class Generator {
 		return nextCost;
 	}
 	
-    public int getOwned() {
+	public int getOwned() {
 		return owned;
 	}
 }
