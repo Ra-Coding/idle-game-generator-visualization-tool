@@ -4,8 +4,6 @@ import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.text.ParseException;
 
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.chart.LineChart;
@@ -146,25 +144,22 @@ public class UI {
   private Button setupButtonC() {
     final Button buttonC = new Button("Calculate For:");
   
-    buttonC.setOnAction(new EventHandler<>() {
-      @Override
-      public void handle(ActionEvent e) {
-        Generator generator = new Generator(Double.parseDouble(inputFieldBC.getText()),
-            Double.parseDouble(inputFieldCF.getText()),
-            Double.parseDouble(inputFieldBR.getText()),
-            Float.parseFloat(inputFieldPTIS.getText()),
-            Double.parseDouble(inputFieldM.getText()));
+    buttonC.setOnAction(e -> {
+      Generator generator = new Generator(Double.parseDouble(inputFieldBC.getText()),
+          Double.parseDouble(inputFieldCF.getText()),
+          Double.parseDouble(inputFieldBR.getText()),
+          Float.parseFloat(inputFieldPTIS.getText()),
+          Double.parseDouble(inputFieldM.getText()));
 
-        seriesC.getData().clear();
-        seriesPPS.getData().clear();
+      seriesC.getData().clear();
+      seriesPPS.getData().clear();
 
-        int owned = Integer.parseInt(inputFieldButtonC.getText());
+      int owned = Integer.parseInt(inputFieldButtonC.getText());
 
-        for (int i = 0; i < owned; i++) {
-          generator.calculateCosts();
-          seriesC.getData().add(new Data<>(i, generator.getNextCost()));
-          seriesPPS.getData().add(new Data<>(i, generator.productionPerSecond()));
-        }
+      for (int i = 0; i < owned; i++) {
+        generator.calculateCosts();
+        seriesC.getData().add(new Data<>(i, generator.getNextCost()));
+        seriesPPS.getData().add(new Data<>(i, generator.productionPerSecond()));
       }
     });
     	
