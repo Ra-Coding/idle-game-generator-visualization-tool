@@ -5,12 +5,12 @@ plugins {
 }
 
 repositories {
-    jcenter()
+    mavenCentral()
 }
 
 dependencies {
-	testImplementation 'org.junit.jupiter:junit-jupiter:5.8.0-M1'
-	testImplementation 'org.assertj:assertj-core:3.19.0'
+	testImplementation 'org.junit.jupiter:junit-jupiter:5.8.2'
+	testImplementation 'org.assertj:assertj-core:3.22.0'
 }
 
 application {
