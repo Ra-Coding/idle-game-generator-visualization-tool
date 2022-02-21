@@ -68,9 +68,10 @@ public class UI {
     this.inputFieldButtonC = new TextField("100");
         
     this.gridPane = setupGridPane();
-    this.borderPane = setupBorderPane();
-    this.scene = new Scene(this.borderPane, 800, 600);
-        
+    BorderPane borderPane = setupBorderPane();
+
+    this.scene = new Scene(borderPane, 800, 640);
+
     this.seriesC = new XYChart.Series<>();
     this.seriesC.setName("Cost");
     this.seriesPPS = new XYChart.Series<>();
