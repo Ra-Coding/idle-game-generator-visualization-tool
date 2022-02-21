@@ -40,7 +40,6 @@ public class UI {
   private final TextField inputFieldM;
     
   private final GridPane gridPane;
-  private final BorderPane borderPane;
   private final Scene scene;
     
   private final XYChart.Series<Number, Number> seriesC;
