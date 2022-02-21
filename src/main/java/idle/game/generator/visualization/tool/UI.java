@@ -1,9 +1,5 @@
 package idle.game.generator.visualization.tool;
 
-import java.text.DecimalFormat;
-import java.text.NumberFormat;
-import java.text.ParseException;
-
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.chart.LineChart;
@@ -12,12 +8,25 @@ import javafx.scene.chart.XYChart;
 import javafx.scene.chart.XYChart.Data;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuBar;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.util.StringConverter;
 
+import java.awt.*;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
+import java.text.ParseException;
+
 public class UI {
+
+  private final MenuBar menuBar;
 
 	private final Button buttonC;
 	private final TextField inputFieldButtonC;
@@ -46,6 +55,8 @@ public class UI {
   private final XYChart.Series<Number, Number> seriesPPS;
     
   public UI() {
+    this.menuBar = setupMenuBar();
+
     this.lineChart = setupLineChart();
     	
     this.labelBC = new Label("Base Cost:");
@@ -136,6 +147,7 @@ public class UI {
     
   private BorderPane setupBorderPane() {
     final BorderPane borderPane = new BorderPane();
+    borderPane.setTop(this.menuBar);
     borderPane.setCenter(this.lineChart);
     borderPane.setPadding(new Insets(0, 10, 15, 10));
     borderPane.setBottom(this.gridPane);
@@ -166,6 +178,29 @@ public class UI {
     });
     	
     return buttonC;
+  }
+
+  private MenuBar setupMenuBar() {
+    MenuBar menuBar = new MenuBar();
+
+    Menu menuAbout = new Menu("About");
+    MenuItem menuItemGithub = new MenuItem("Github");
+
+    menuItemGithub.setOnAction(e -> {
+      Desktop desktop = java.awt.Desktop.getDesktop();
+      try {
+        URI oURL = new URI("https://github.com/Ra-Coding/idle-game-generator-visualization-tool");
+        desktop.browse(oURL);
+      } catch (URISyntaxException | IOException ex) {
+        ex.printStackTrace();
+      }
+    });
+
+    menuAbout.getItems().add(menuItemGithub);
+
+    menuBar.getMenus().add(menuAbout);
+
+    return menuBar;
   }
 
 	public Scene getScene() {
