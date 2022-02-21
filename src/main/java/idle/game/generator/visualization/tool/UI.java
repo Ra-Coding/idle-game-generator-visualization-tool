@@ -107,6 +107,8 @@ public class UI {
         
     final LineChart<Number,Number> lineChart = new LineChart<>(xAxis, yAxis);
     lineChart.setTitle("Generator");
+    lineChart.setAnimated(false);
+    lineChart.setCreateSymbols(false);
         
     return lineChart;
   }
