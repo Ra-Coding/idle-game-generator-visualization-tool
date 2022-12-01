@@ -49,4 +49,28 @@ public class Generator implements Serializable {
 	public int getOwned() {
 		return owned;
 	}
+
+	public String getName() {
+		return name;
+	}
+
+	public double getMultiplier() {
+		return multiplier;
+	}
+
+	public double getBaseCost() {
+		return baseCost;
+	}
+
+	public double getBaseRevenue() {
+		return baseRevenue;
+	}
+
+	public float getBaseProductionTimeInSeconds() {
+		return baseProductionTimeInSeconds;
+	}
+
+	public double getCostFactor() {
+		return costFactor;
+	}
 }
