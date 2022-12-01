@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 public class GeneratorTest {
 	
 	private Generator setupGenerator() {
-		Generator generator = new Generator(5, 1.05, 3, 3, 1);
+		Generator generator = new Generator("Generator", 5, 1.05, 3, 3, 1);
 		return generator;
 	}
 	

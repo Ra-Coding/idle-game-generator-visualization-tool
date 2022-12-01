@@ -14,9 +14,12 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 import javafx.util.StringConverter;
 
 import java.awt.*;
+import java.io.File;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -44,6 +47,9 @@ public class UI {
     
   private final Label labelPTIS;
   private final TextField inputFieldPTIS;
+
+  private final Label labelName;
+  private final TextField inputFieldName;
     
   private final Label labelM;
   private final TextField inputFieldM;
@@ -53,8 +59,17 @@ public class UI {
     
   private final XYChart.Series<Number, Number> seriesC;
   private final XYChart.Series<Number, Number> seriesPPS;
+  private final Stage stage;
+
+  private Generator generator;
+  private final GeneratorReader generatorReader;
+  private final GeneratorWriter generatorWriter;
     
-  public UI() {
+  public UI(Stage stage, GeneratorReader generatorReader, GeneratorWriter generatorWriter) {
+    this.stage = stage;
+    this.generatorReader = generatorReader;
+    this.generatorWriter = generatorWriter;
+
     this.menuBar = setupMenuBar();
 
     this.lineChart = setupLineChart();
@@ -73,6 +88,9 @@ public class UI {
         
     this.labelM = new Label("Multiplier:");
     this.inputFieldM = new TextField("1");
+
+    this.labelName = new Label("Name:");
+    this.inputFieldName = new TextField("Generator");
         
     this.buttonC = setupButtonC();
     this.inputFieldButtonC = new TextField("100");
@@ -141,6 +159,8 @@ public class UI {
     gridPane.add(this.inputFieldM, 5, 1);
     gridPane.add(this.buttonC, 1, 2);
     gridPane.add(this.inputFieldButtonC, 2, 2);
+    gridPane.add(this.labelName, 4, 2);
+    gridPane.add(this.inputFieldName, 5, 2);
         
     return gridPane;
   }
@@ -159,12 +179,14 @@ public class UI {
     final Button buttonC = new Button("Calculate For:");
   
     buttonC.setOnAction(e -> {
-      Generator generator = new Generator(Double.parseDouble(inputFieldBC.getText()),
+      generator = new Generator(inputFieldName.getText(),
+          Double.parseDouble(inputFieldBC.getText()),
           Double.parseDouble(inputFieldCF.getText()),
           Double.parseDouble(inputFieldBR.getText()),
           Float.parseFloat(inputFieldPTIS.getText()),
           Double.parseDouble(inputFieldM.getText()));
 
+      lineChart.setTitle(generator.getName());
       seriesC.getData().clear();
       seriesPPS.getData().clear();
 
@@ -183,6 +205,10 @@ public class UI {
   private MenuBar setupMenuBar() {
     MenuBar menuBar = new MenuBar();
 
+    Menu menuFile = new Menu("File");
+    MenuItem menuItemSave = new MenuItem("Save");
+    MenuItem menuItemLoad = new MenuItem("Load");
+
     Menu menuAbout = new Menu("About");
     MenuItem menuItemGithub = new MenuItem("Github");
 
@@ -196,11 +222,42 @@ public class UI {
       }
     });
 
+    menuItemSave.setOnAction(e -> {
+      generatorWriter.writeGenerator(generator, generator.getName());
+    });
+
+    FileChooser fileChooser = new FileChooser();
+    fileChooser.getExtensionFilters().addAll(
+        new FileChooser.ExtensionFilter("Text Files", "*.txt")
+    );
+
+    menuItemLoad.setOnAction(e -> {
+      File selectedFile = fileChooser.showOpenDialog(stage);
+      if (selectedFile != null) {
+        generator = generatorReader.readGenerator(selectedFile.getName());
+        LoadGenerator();
+      }
+    });
+
+    menuFile.getItems().add(menuItemSave);
+    menuFile.getItems().add(menuItemLoad);
     menuAbout.getItems().add(menuItemGithub);
 
+    menuBar.getMenus().add(menuFile);
     menuBar.getMenus().add(menuAbout);
 
     return menuBar;
+  }
+
+  private void LoadGenerator() {
+    lineChart.setTitle(generator.getName());
+    inputFieldButtonC.setText("" + generator.getOwned());
+    inputFieldBC.setText("" + generator.getBaseCost());
+    inputFieldCF.setText("" + generator.getCostFactor());
+    inputFieldBR.setText("" + generator.getBaseRevenue());
+    inputFieldPTIS.setText("" + generator.getBaseProductionTimeInSeconds());
+    inputFieldM.setText("" + generator.getMultiplier());
+    inputFieldName.setText(generator.getName());
   }
 
 	public Scene getScene() {
