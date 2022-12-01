@@ -1,7 +1,10 @@
 package idle.game.generator.visualization.tool;
 
-public class Generator {
-	
+import java.io.Serializable;
+
+public class Generator implements Serializable {
+
+	static final long serialVersionUID = 1L;
 	private final double multiplier;
 	private int owned;
 	private final double baseCost;

@@ -6,12 +6,14 @@ import javafx.stage.Stage;
 public class App extends Application {
  
     @Override public void start(Stage stage) {
-    	final UI ui = new UI();
+      final GeneratorReader generatorReader = new GeneratorReader();
+      final GeneratorWriter generatorWriter = new GeneratorWriter();
+    	final UI ui = new UI(stage, generatorReader, generatorWriter);
     	
-        stage.setTitle("Idle-Game Generator Visualization Tool");
-        stage.setResizable(false);
-        stage.setScene(ui.getScene());
-        stage.show();
+      stage.setTitle("Idle-Game Generator Visualization Tool");
+      stage.setResizable(false);
+      stage.setScene(ui.getScene());
+      stage.show();
     }
  
     public static void main(String[] args) {
