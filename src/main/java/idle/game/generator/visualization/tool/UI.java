@@ -14,9 +14,12 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 import javafx.util.StringConverter;
 
 import java.awt.*;
+import java.io.File;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -56,8 +59,17 @@ public class UI {
     
   private final XYChart.Series<Number, Number> seriesC;
   private final XYChart.Series<Number, Number> seriesPPS;
+  private final Stage stage;
+
+  private Generator generator;
+  private final GeneratorReader generatorReader;
+  private final GeneratorWriter generatorWriter;
     
-  public UI() {
+  public UI(Stage stage, GeneratorReader generatorReader, GeneratorWriter generatorWriter) {
+    this.stage = stage;
+    this.generatorReader = generatorReader;
+    this.generatorWriter = generatorWriter;
+
     this.menuBar = setupMenuBar();
 
     this.lineChart = setupLineChart();
@@ -193,6 +205,10 @@ public class UI {
   private MenuBar setupMenuBar() {
     MenuBar menuBar = new MenuBar();
 
+    Menu menuFile = new Menu("File");
+    MenuItem menuItemSave = new MenuItem("Save");
+    MenuItem menuItemLoad = new MenuItem("Load");
+
     Menu menuAbout = new Menu("About");
     MenuItem menuItemGithub = new MenuItem("Github");
 
@@ -206,11 +222,42 @@ public class UI {
       }
     });
 
+    menuItemSave.setOnAction(e -> {
+      generatorWriter.writeGenerator(generator, generator.getName());
+    });
+
+    FileChooser fileChooser = new FileChooser();
+    fileChooser.getExtensionFilters().addAll(
+        new FileChooser.ExtensionFilter("Text Files", "*.txt")
+    );
+
+    menuItemLoad.setOnAction(e -> {
+      File selectedFile = fileChooser.showOpenDialog(stage);
+      if (selectedFile != null) {
+        generator = generatorReader.readGenerator(selectedFile.getName());
+        LoadGenerator();
+      }
+    });
+
+    menuFile.getItems().add(menuItemSave);
+    menuFile.getItems().add(menuItemLoad);
     menuAbout.getItems().add(menuItemGithub);
 
+    menuBar.getMenus().add(menuFile);
     menuBar.getMenus().add(menuAbout);
 
     return menuBar;
+  }
+
+  private void LoadGenerator() {
+    lineChart.setTitle(generator.getName());
+    inputFieldButtonC.setText("" + generator.getOwned());
+    inputFieldBC.setText("" + generator.getBaseCost());
+    inputFieldCF.setText("" + generator.getCostFactor());
+    inputFieldBR.setText("" + generator.getBaseRevenue());
+    inputFieldPTIS.setText("" + generator.getBaseProductionTimeInSeconds());
+    inputFieldM.setText("" + generator.getMultiplier());
+    inputFieldName.setText(generator.getName());
   }
 
 	public Scene getScene() {
