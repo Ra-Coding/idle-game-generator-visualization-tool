@@ -5,6 +5,7 @@ import java.io.Serializable;
 public class Generator implements Serializable {
 
 	static final long serialVersionUID = 1L;
+	private String name;
 	private final double multiplier;
 	private int owned;
 	private final double baseCost;
@@ -13,7 +14,9 @@ public class Generator implements Serializable {
 	private final double costFactor;
 	private double nextCost;
 	
-	public Generator(double baseCost, double costFactor, double baseRevenue, float baseProductionTimeInSeconds, double multiplier) {
+	public Generator(String name, double baseCost, double costFactor, double baseRevenue,
+									 float baseProductionTimeInSeconds, double multiplier) {
+		this.name = name;
 		this.baseCost = baseCost;
 		this.costFactor = costFactor;
 		this.baseRevenue = baseRevenue;

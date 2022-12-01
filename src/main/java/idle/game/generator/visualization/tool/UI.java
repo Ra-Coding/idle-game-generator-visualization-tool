@@ -44,6 +44,9 @@ public class UI {
     
   private final Label labelPTIS;
   private final TextField inputFieldPTIS;
+
+  private final Label labelName;
+  private final TextField inputFieldName;
     
   private final Label labelM;
   private final TextField inputFieldM;
@@ -73,6 +76,9 @@ public class UI {
         
     this.labelM = new Label("Multiplier:");
     this.inputFieldM = new TextField("1");
+
+    this.labelName = new Label("Name:");
+    this.inputFieldName = new TextField("Generator");
         
     this.buttonC = setupButtonC();
     this.inputFieldButtonC = new TextField("100");
@@ -141,6 +147,8 @@ public class UI {
     gridPane.add(this.inputFieldM, 5, 1);
     gridPane.add(this.buttonC, 1, 2);
     gridPane.add(this.inputFieldButtonC, 2, 2);
+    gridPane.add(this.labelName, 4, 2);
+    gridPane.add(this.inputFieldName, 5, 2);
         
     return gridPane;
   }
@@ -159,12 +167,14 @@ public class UI {
     final Button buttonC = new Button("Calculate For:");
   
     buttonC.setOnAction(e -> {
-      Generator generator = new Generator(Double.parseDouble(inputFieldBC.getText()),
+      generator = new Generator(inputFieldName.getText(),
+          Double.parseDouble(inputFieldBC.getText()),
           Double.parseDouble(inputFieldCF.getText()),
           Double.parseDouble(inputFieldBR.getText()),
           Float.parseFloat(inputFieldPTIS.getText()),
           Double.parseDouble(inputFieldM.getText()));
 
+      lineChart.setTitle(generator.getName());
       seriesC.getData().clear();
       seriesPPS.getData().clear();
 
