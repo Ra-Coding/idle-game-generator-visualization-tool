@@ -1,5 +1,7 @@
 # idle-game-generator-visualization-tool
 
+[![Java CI with Gradle](https://github.com/Ra-Coding/idle-game-generator-visualization-tool/actions/workflows/gradle.yml/badge.svg)](https://github.com/Ra-Coding/idle-game-generator-visualization-tool/actions/workflows/gradle.yml)
+
 ## The mathematical formulas
 
 ### Cost
