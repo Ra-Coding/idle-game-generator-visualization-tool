@@ -8,6 +8,7 @@ public class Generator implements Serializable {
 	private String name;
 	private final double multiplier;
 	private int owned;
+	private int ownedCostHigherRevenue;
 	private final double baseCost;
 	private final double baseRevenue;
 	private final float baseProductionTimeInSeconds;
@@ -32,6 +33,11 @@ public class Generator implements Serializable {
     public void calculateCosts() {
     	updateNextBuildingCost();
     	owned++;
+
+			// print if production per second is less than the next cost
+			if (productionPerSecond() < nextCost) {
+				System.out.print(owned + " ");
+			}
     }
     
     public double productionPerSecond() {
