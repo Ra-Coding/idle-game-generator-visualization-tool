@@ -26,27 +26,26 @@ public class Generator implements Serializable {
 		updateNextBuildingCost();
 	}
 
-    public void updateNextBuildingCost() {
+	public void updateNextBuildingCost() {
         nextCost = baseCost * Math.pow(costFactor, owned);
     }
-    
-    public void calculateCosts() {
-    	updateNextBuildingCost();
-    	owned++;
 
-			// print if production per second is less than the next cost
-			if (productionPerSecond() < nextCost) {
-				System.out.print(owned + " ");
-			}
-    }
-    
-    public double productionPerSecond() {
-        if (owned == 0) {
-            return 0;
-        }
+	public void calculateCosts() {
+    updateNextBuildingCost();
+    owned++;
 
-        return (baseRevenue * owned * multiplier) / baseProductionTimeInSeconds;
+		// print if production per second is less than the next cost
+		if (productionPerSecond() < nextCost) {
+			System.out.print(owned + " ");
+		}
+	}
+
+	public double productionPerSecond() {
+  	if (owned == 0) {
+    	return 0;
     }
+		return (baseRevenue * owned * multiplier) / baseProductionTimeInSeconds;
+	}
 
 	public double getNextCost() {
 		return nextCost;
