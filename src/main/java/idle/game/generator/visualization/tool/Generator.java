@@ -8,7 +8,6 @@ public class Generator implements Serializable {
 	private String name;
 	private final double multiplier;
 	private int owned;
-	private int ownedCostHigherRevenue;
 	private final double baseCost;
 	private final double baseRevenue;
 	private final float baseProductionTimeInSeconds;
@@ -50,7 +49,7 @@ public class Generator implements Serializable {
 	public double getNextCost() {
 		return nextCost;
 	}
-	
+
 	public int getOwned() {
 		return owned;
 	}
