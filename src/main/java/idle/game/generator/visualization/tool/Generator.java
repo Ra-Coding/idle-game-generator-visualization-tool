@@ -1,18 +1,21 @@
 package idle.game.generator.visualization.tool;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 public class Generator implements Serializable {
 
 	static final long serialVersionUID = 1L;
 	private String name;
-	private final double multiplier;
+	private double multiplier;
 	private int owned;
-	private final double baseCost;
-	private final double baseRevenue;
-	private final float baseProductionTimeInSeconds;
-	private final double costFactor;
+	private double baseCost;
+	private double baseRevenue;
+	private float baseProductionTimeInSeconds;
+	private double costFactor;
 	private double nextCost;
+
+	public Generator() {}
 	
 	public Generator(String name, double baseCost, double costFactor, double baseRevenue,
 									 float baseProductionTimeInSeconds, double multiplier) {
@@ -46,6 +49,38 @@ public class Generator implements Serializable {
 		return (baseRevenue * owned * multiplier) / baseProductionTimeInSeconds;
 	}
 
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public void setMultiplier(double multiplier) {
+		this.multiplier = multiplier;
+	}
+
+	public void setOwned(int owned) {
+		this.owned = owned;
+	}
+
+	public void setBaseCost(double baseCost) {
+		this.baseCost = baseCost;
+	}
+
+	public void setBaseRevenue(double baseRevenue) {
+		this.baseRevenue = baseRevenue;
+	}
+
+	public void setBaseProductionTimeInSeconds(float baseProductionTimeInSeconds) {
+		this.baseProductionTimeInSeconds = baseProductionTimeInSeconds;
+	}
+
+	public void setCostFactor(double costFactor) {
+		this.costFactor = costFactor;
+	}
+
+	public void setNextCost(double nextCost) {
+		this.nextCost = nextCost;
+	}
+
 	public double getNextCost() {
 		return nextCost;
 	}
@@ -76,5 +111,25 @@ public class Generator implements Serializable {
 
 	public double getCostFactor() {
 		return costFactor;
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+		Generator generator = (Generator) o;
+		return Double.compare(generator.multiplier, multiplier) == 0 &&
+				owned == generator.owned &&
+				Double.compare(generator.baseCost, baseCost) == 0 &&
+				Double.compare(generator.baseRevenue, baseRevenue) == 0 &&
+				Float.compare(generator.baseProductionTimeInSeconds, baseProductionTimeInSeconds) == 0 &&
+				Double.compare(generator.costFactor, costFactor) == 0 && Double.compare(generator.nextCost, nextCost) == 0 &&
+				name.equals(generator.name);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(name, multiplier, owned, baseCost, baseRevenue,
+				baseProductionTimeInSeconds, costFactor, nextCost);
 	}
 }
