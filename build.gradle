@@ -9,7 +9,8 @@ repositories {
 }
 
 dependencies {
-	testImplementation 'org.junit.jupiter:junit-jupiter:5.9.0'
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.13.3'
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.9.0'
 	testImplementation 'org.assertj:assertj-core:3.23.1'
 }
 
