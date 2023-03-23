@@ -222,13 +222,11 @@ public class UI {
       }
     });
 
-    menuItemSave.setOnAction(e -> {
-      generatorWriter.writeGenerator(generator, generator.getName());
-    });
+    menuItemSave.setOnAction(e -> generatorWriter.writeGenerator(generator));
 
     FileChooser fileChooser = new FileChooser();
     fileChooser.getExtensionFilters().addAll(
-        new FileChooser.ExtensionFilter("Text Files", "*.txt")
+        new FileChooser.ExtensionFilter("JSON Files", "*.json")
     );
 
     menuItemLoad.setOnAction(e -> {
