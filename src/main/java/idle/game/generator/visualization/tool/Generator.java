@@ -37,11 +37,6 @@ public class Generator implements Serializable {
 	public void calculateCosts() {
     updateNextBuildingCost();
     owned++;
-
-		// print if production per second is less than the next cost
-		if (productionPerSecond() < nextCost) {
-			System.out.print(owned + " ");
-		}
 	}
 
 	public double productionPerSecond() {
