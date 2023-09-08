@@ -1,11 +1,13 @@
 package idle.game.generator.visualization.tool;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.Objects;
 
 public class Generator implements Serializable {
 
-	static final long serialVersionUID = 1L;
+	@Serial
+	private static final long serialVersionUID = 1L;
 	private String name;
 	private double multiplier;
 	private int owned;
